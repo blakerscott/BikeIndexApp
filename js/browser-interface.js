@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#bikeLocation').click(function() {
+  $('#bikeLocation').submit(function() {
     var zipCode = $('#location').val();
     $('#location').val("");
 
@@ -21,3 +21,17 @@ function initMap() {
     center: {lat: 45.5200, lng: -122.6819}
   });
 }
+function Address() {
+    var address = document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
